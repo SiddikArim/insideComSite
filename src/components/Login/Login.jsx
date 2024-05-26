@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./Login.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 
 const Login = () => {
+  const [visibility, setVisibility] = useState(false);
   const { signIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,7 +39,15 @@ const Login = () => {
         </div>
         <div className="form-group">
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" required />
+          <input
+            type={visibility ? "password" : "text"}
+            id="password"
+            name="password"
+            required
+          />
+          <p onClick={() => setVisibility(!visibility)}>
+            <small>{visibility ? "Show" : "Hide"} Password</small>
+          </p>
         </div>
         <button type="submit">Login</button>
       </form>
